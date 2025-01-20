@@ -11,6 +11,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(cpp_pkg REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(example_interfaces REQUIRED)
 
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
@@ -19,15 +20,23 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
 ament_export_dependencies(rosidl_default_runtime)
 
+# topic
 add_executable(talker src/talker_cpp.cpp)
 ament_target_dependencies(talker rclcpp std_msgs cpp_pkg)
-
 add_executable(listener src/listener_cpp.cpp)
 ament_target_dependencies(listener rclcpp std_msgs cpp_pkg)
+
+# service
+add_executable(server src/add_two_ints_server.cpp)
+ament_target_dependencies(server rclcpp example_interfaces)
+add_executable(client src/add_two_ints_client.cpp)
+ament_target_dependencies(client rclcpp example_interfaces)
 
 install(TARGETS
   talker
   listener
+  server
+  client
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

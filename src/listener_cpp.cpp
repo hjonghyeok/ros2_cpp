@@ -4,7 +4,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "cpp_pkg/msg/num.hpp"
 
-
 rclcpp::Subscription<cpp_pkg::msg::Num>::SharedPtr sub;
 
 void callback(const cpp_pkg::msg::Num::SharedPtr msg)
